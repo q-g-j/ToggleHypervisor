@@ -210,8 +210,8 @@
     <Folder Include="Assets\Images\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileLogger\FileLogger.csproj">
-      <Project>{a7007fdf-1ffe-40d0-acac-85e426919d74}</Project>
+    <ProjectReference Include="FileLogger\FileLogger.csproj">
+      <Project>{a49d453a-136e-4798-a05c-cc8e1aa3539d}</Project>
       <Name>FileLogger</Name>
     </ProjectReference>
   </ItemGroup>

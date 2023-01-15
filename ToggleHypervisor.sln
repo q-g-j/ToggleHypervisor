@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToggleHypervisor", "ToggleHypervisor.csproj", "{4BB814F0-5139-4492-B6B7-D69AC84BA9A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLogger", "..\FileLogger\FileLogger.csproj", "{A7007FDF-1FFE-40D0-ACAC-85E426919D74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileLogger", "FileLogger\FileLogger.csproj", "{A49D453A-136E-4798-A05C-CC8E1AA3539D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{4BB814F0-5139-4492-B6B7-D69AC84BA9A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BB814F0-5139-4492-B6B7-D69AC84BA9A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BB814F0-5139-4492-B6B7-D69AC84BA9A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7007FDF-1FFE-40D0-ACAC-85E426919D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7007FDF-1FFE-40D0-ACAC-85E426919D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7007FDF-1FFE-40D0-ACAC-85E426919D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7007FDF-1FFE-40D0-ACAC-85E426919D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A49D453A-136E-4798-A05C-CC8E1AA3539D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A49D453A-136E-4798-A05C-CC8E1AA3539D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A49D453A-136E-4798-A05C-CC8E1AA3539D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A49D453A-136E-4798-A05C-CC8E1AA3539D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
