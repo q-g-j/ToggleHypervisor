@@ -16,7 +16,7 @@ namespace ToggleHypervisor.Services
     {
         public ComponentsInstaller()
         {
-            fileLogger = new FileLogger();
+            fileLogger = App.Current.Services.GetService<FileLogger>();
             LogEvent += fileLogger.LogWriteLine;
         }
 

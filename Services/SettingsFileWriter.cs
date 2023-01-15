@@ -21,7 +21,7 @@ namespace ToggleHypervisor.Services
         {
             fileLocations = App.Current.Services.GetService<FileLocations>();
 
-            fileLogger = new FileLogger();
+            fileLogger = App.Current.Services.GetService<FileLogger>();
             LogEvent += fileLogger.LogWriteLine;
         }
 

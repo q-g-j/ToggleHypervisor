@@ -31,10 +31,9 @@ namespace ToggleHypervisor.Services
 
         protected virtual LoggerEventArgs GetLoggerEventArgs(string message, string className, string methodName, Exception e)
         {
-            SettingsData settingsData = App.Current.Services.GetService<SettingsData>();
             FileLocations fileLocations = App.Current.Services.GetService<FileLocations>();
 
-            return new LoggerEventArgs(fileLocations.LogFileName, settingsData.MaxLogFileSizeInKB, message, className, methodName, e);
+            return new LoggerEventArgs(fileLocations.LogFileName, message, className, methodName, e);
         }
     }
 }

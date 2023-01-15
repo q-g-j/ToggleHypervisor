@@ -17,7 +17,7 @@ namespace ToggleHypervisor.Services
     {
         public HypervisorSwitcher()
         {
-            fileLogger = new FileLogger();
+            fileLogger = App.Current.Services.GetService<FileLogger>();
             LogEvent += fileLogger.LogWriteLine;
         }
 
