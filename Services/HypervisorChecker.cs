@@ -39,12 +39,11 @@ namespace ToggleHypervisor.Services
             }
             catch (Exception ex)
             {
-                LoggerEventArgs loggerEventArgs = GetLoggerEventArgs(
+                var loggerEventArgs = new LoggerEventArgs(
                     String.Empty,
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
-                    ex
-                    );
+                    ex);
                 RaiseLogEvent(this, loggerEventArgs);
             }
 
@@ -97,12 +96,11 @@ namespace ToggleHypervisor.Services
             }
             catch (Exception ex)
             {
-                LoggerEventArgs loggerEventArgs = GetLoggerEventArgs(
+                var loggerEventArgs = new LoggerEventArgs(
                     String.Empty,
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
-                    ex
-                    );
+                    ex);
                 RaiseLogEvent(this, loggerEventArgs);
             }
 
@@ -149,12 +147,11 @@ namespace ToggleHypervisor.Services
             }
             catch (Exception ex)
             {
-                LoggerEventArgs loggerEventArgs = GetLoggerEventArgs(
+                var loggerEventArgs = new LoggerEventArgs(
                     String.Empty,
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
-                    ex
-                    );
+                    ex);
                 RaiseLogEvent(this, loggerEventArgs);
             }
 

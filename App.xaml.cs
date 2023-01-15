@@ -34,7 +34,7 @@ namespace ToggleHypervisor
             var services = new ServiceCollection();
 
             services.AddSingleton<FileLocations>();
-            services.AddSingleton(new FileLogger("ToggleHypervisor.log", 4));
+            services.AddSingleton(new FileLogger("ToggleHypervisor.log", 256));
             services.AddSingleton<SettingsData>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainPageViewModel>();

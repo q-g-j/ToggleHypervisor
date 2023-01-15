@@ -39,13 +39,13 @@ namespace ToggleHypervisor.ViewModels
                 message += " Program started ";
                 message += new string('*', 5);
 
-                LoggerEventArgs loggerEventArgs1 = GetLoggerEventArgs(
+                var loggerEventArgs = new LoggerEventArgs(
                     message,
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
                     null
                     );
-                RaiseLogEvent(this, loggerEventArgs1);
+                RaiseLogEvent(this, loggerEventArgs);
             });
         }
 

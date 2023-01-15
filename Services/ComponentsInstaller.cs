@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ToggleHypervisor.Models;
@@ -35,8 +36,20 @@ namespace ToggleHypervisor.Services
                     RedirectStandardOutput = true
                 }
             };
-            process.Start();
-            process.WaitForExit();
+            try
+            {
+                process.Start();
+                process.WaitForExit();
+            }
+            catch (Exception ex)
+            {
+                var loggerEventArgs = new LoggerEventArgs(
+                    String.Empty,
+                    GetType().Name,
+                    MethodBase.GetCurrentMethod().Name,
+                    ex);
+                RaiseLogEvent(this, loggerEventArgs);
+            }
         }
     }
 }

@@ -19,19 +19,9 @@ namespace ToggleHypervisor.Services
             RaiseLogEvent(o, eventArgs);
         }
 
-        LoggerEventArgs IFileLogger.GetEventArgs(string message, string className, string methodName, Exception e)
-        {
-            return GetLoggerEventArgs(message, className, methodName, e);
-        }
-
         protected virtual void RaiseLogEvent(object o, LoggerEventArgs eventArgs)
         {
             LogEvent?.Invoke(o, eventArgs);
-        }
-
-        protected virtual LoggerEventArgs GetLoggerEventArgs(string message, string className, string methodName, Exception e)
-        {
-            return new LoggerEventArgs(message, className, methodName, e);
         }
     }
 }
