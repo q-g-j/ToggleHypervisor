@@ -14,5 +14,19 @@ Useful when you want to be able to alternate between Microsoft's Hyper-V virtual
      - install the the Hyper-V Hypervisor if not installed
      - set "reboot on toggle" (gets remembered via a settings file)
  
- Uses my other project [FileLogger](https://github.com/q-g-j/FileLogger) for error logging to a file (default location of the file is the same as the EXE).
+ ### Dependencies
  
+**ToggleHypervisor** Uses my other project **[FileLogger](https://github.com/q-g-j/FileLogger)** for error logging to a file (default location of the file is the same as the EXE).<br/>
+ It is included as a git submodule. Use the following git commands to fetch it:
+
+```
+git clone https://github.com/q-g-j/ToggleHypervisor
+cd ToggleHypervisor
+git submodule update --init --recursive
+```
+ 
+To update all:
+
+```
+git pull --recurse-submodules
+```
