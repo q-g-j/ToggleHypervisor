@@ -22,9 +22,6 @@ namespace ToggleHypervisor
             new AdminChecker().ReRunAsAdmin();
             new SettingsFileCreator().Create();
 
-            FileLocations fileLocations = Services.GetService<FileLocations>();
-            fileLocations.LogFileName = "ToggleHyperVisor.log";
-
             InitializeComponent();
         }
 
@@ -37,7 +34,7 @@ namespace ToggleHypervisor
             var services = new ServiceCollection();
 
             services.AddSingleton<FileLocations>();
-            services.AddSingleton(new FileLogger(4));
+            services.AddSingleton(new FileLogger("ToggleHypervisor.log", 4));
             services.AddSingleton<SettingsData>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainPageViewModel>();

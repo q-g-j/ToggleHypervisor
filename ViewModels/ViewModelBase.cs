@@ -48,9 +48,7 @@ namespace ToggleHypervisor.ViewModels
 
         protected virtual LoggerEventArgs GetLoggerEventArgs(string message, string className, string methodName, Exception e)
         {
-            FileLocations fileLocations = App.Current.Services.GetService<FileLocations>();
-
-            return new LoggerEventArgs(fileLocations.LogFileName, message, className, methodName, e);
+            return new LoggerEventArgs(message, className, methodName, e);
         }
     }
 }

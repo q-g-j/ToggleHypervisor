@@ -11,6 +11,5 @@ namespace ToggleHypervisor.Models
     {
         public string SettingsFolderName { get; set; }
         public string SettingsFileName { get; set; }
-        public string LogFileName { get; set; }
     }
 }
