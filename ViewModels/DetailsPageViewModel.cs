@@ -261,6 +261,7 @@ namespace ToggleHypervisor.ViewModels
         private void ButtonBackAction()
         {
             mainWindowViewModel.CurrentPage = new MainPage();
+            ButtonRebootVisibility = "Hidden";
         }
 
         public ICommand ButtonFixFlagCommand { get; set; }
