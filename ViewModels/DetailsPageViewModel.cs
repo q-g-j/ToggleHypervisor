@@ -171,12 +171,10 @@ namespace ToggleHypervisor.ViewModels
         {
             return new Task(() =>
             {
-                bool isHypervisorlaunchtypeFlagSet = false;
 
                 if (hypervisorChecker.IsHypervisorlaunchtypeFlagSet())
                 {
                     LabelStatusHypervisorlaunchtypeResult = "Yes";
-                    isHypervisorlaunchtypeFlagSet = true;
                 }
                 else
                 {
@@ -190,18 +188,27 @@ namespace ToggleHypervisor.ViewModels
                     LabelStatusOverallVisibility = "Visible";
                     LabelStatusOverallResultVisibility = "Visible";
                 }
-                bool isEnabledOverall = hypervisorChecker.IsEnabledOverall();
-                if (
-                isEnabledOverall && ! isHypervisorlaunchtypeFlagSet ||
-                ! isEnabledOverall && isHypervisorlaunchtypeFlagSet)
-                {
-                    ButtonRebootVisibility = "Visible";
-                }
-                else
-                {
-                    ButtonRebootVisibility = "Hidden";
-                }
+
+                ToggleRebootButtonVisibility();
             });
+        }
+
+        private void ToggleRebootButtonVisibility()
+        {
+            bool isHypervisorlaunchtypeFlagSet = hypervisorChecker.IsHypervisorlaunchtypeFlagSet();
+            bool isEnabledOverall = hypervisorChecker.IsEnabledOverall();
+
+            if (
+                isEnabledOverall && !isHypervisorlaunchtypeFlagSet ||
+                !isEnabledOverall && isHypervisorlaunchtypeFlagSet
+                )
+            {
+                ButtonRebootVisibility = "Visible";
+            }
+            else
+            {
+                ButtonRebootVisibility = "Hidden";
+            }
         }
 
         private Task GetAreComponentsInstalledTask()
@@ -268,7 +275,8 @@ namespace ToggleHypervisor.ViewModels
             LabelStatusHypervisorlaunchtypeResult = "Yes";
             mainPageViewModel.LabelIsHypervisorlaunchtypeSet = "The Hypervisor boot flag is set.";
             ButtonFixFlagIsEnabled = "False";
-            ButtonRebootVisibility = "Visible";
+
+            ToggleRebootButtonVisibility();
         }
 
         public ICommand ButtonFixComponentsCommand { get; set; }
