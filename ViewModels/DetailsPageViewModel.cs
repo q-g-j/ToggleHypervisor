@@ -24,14 +24,9 @@ namespace ToggleHypervisor.ViewModels
                 GetAreComponentsInstalledTask
             };
 
-            if (settingsData == null)
-            {
-                settingsData = App.Current.Services.GetService<SettingsData>();
-            }
-            if (mainWindowViewModel == null)
-            {
-                mainWindowViewModel = App.Current.Services.GetService<MainWindowViewModel>();
-            }
+            settingsData = App.Current.Services.GetService<SettingsData>();
+            mainWindowViewModel = App.Current.Services.GetService<MainWindowViewModel>();
+            mainPageViewModel = App.Current.Services.GetService<MainPageViewModel>();
 
             fileLogger = App.Current.Services.GetService<FileLogger>();
             LogEvent += fileLogger.LogWriteLine;
@@ -47,6 +42,7 @@ namespace ToggleHypervisor.ViewModels
         private readonly FileLogger fileLogger;
         private readonly SettingsData settingsData;
         private readonly MainWindowViewModel mainWindowViewModel;
+        private readonly MainPageViewModel mainPageViewModel;
 
         private string labelStatusComponentsInstalled = "Hyper-V components installed:";
         public string LabelStatusComponentsInstalled
@@ -270,6 +266,7 @@ namespace ToggleHypervisor.ViewModels
         {
             hypervisorSwitcher.Switch(true);
             LabelStatusHypervisorlaunchtypeResult = "Yes";
+            mainPageViewModel.LabelIsHypervisorlaunchtypeSet = "The Hypervisor boot flag is set.";
             ButtonFixFlagIsEnabled = "False";
             ButtonRebootVisibility = "Visible";
         }
