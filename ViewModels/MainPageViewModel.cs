@@ -33,7 +33,7 @@ namespace ToggleHypervisor.ViewModels
                 mainWindowViewModel = App.Current.Services.GetService<MainWindowViewModel>();
             }
 
-            fileLogger = App.Current.Services.GetService<FileLogger>();
+            fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
         }
 

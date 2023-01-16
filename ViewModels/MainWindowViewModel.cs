@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using ToggleHypervisor.Models;
+using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 
 namespace ToggleHypervisor.ViewModels
@@ -12,7 +13,7 @@ namespace ToggleHypervisor.ViewModels
     {
         public MainWindowViewModel()
         {
-            fileLogger = App.Current.Services.GetService<FileLogger>();
+            fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
 
             if (settingsData == null)

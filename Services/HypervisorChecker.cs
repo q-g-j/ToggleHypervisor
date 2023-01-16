@@ -12,7 +12,7 @@ namespace ToggleHypervisor.Services
     {
         public HypervisorChecker()
         {
-            fileLogger = App.Current.Services.GetService<FileLogger>();
+            fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
         }
 

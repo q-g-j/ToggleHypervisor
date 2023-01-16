@@ -13,10 +13,11 @@ namespace ToggleHypervisor
     {
         public App()
         {
+            AdminChecker.ReRunAsAdmin();
+
             Services = ConfigureServices();
 
-            new AdminChecker().ReRunAsAdmin();
-            new SettingsFileCreator().Create();
+            SettingsFileCreator.GetInstance().Create();
 
             InitializeComponent();
         }
@@ -29,9 +30,8 @@ namespace ToggleHypervisor
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<FileLocations>();
-            services.AddSingleton(new FileLogger("ToggleHypervisor.log", 256));
             services.AddSingleton<SettingsData>();
+            services.AddSingleton<FileLocations>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainPageViewModel>();
             services.AddSingleton<DetailsPageViewModel>();

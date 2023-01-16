@@ -19,7 +19,7 @@ namespace ToggleHypervisor.Services
         {
             fileLocations = App.Current.Services.GetService<FileLocations>();
 
-            fileLogger = App.Current.Services.GetService<FileLogger>();
+            fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
         }
 
@@ -39,12 +39,7 @@ namespace ToggleHypervisor.Services
                 try
                 {
                     Directory.CreateDirectory(Path.Combine(appDataRoaming, settingsFolder));
-
-                    SettingsData settingsData = App.Current.Services.GetService<SettingsData>();
-
-                    settingsData.RebootAfterToggle = false;
-                    settingsData.MaxLogFileSizeInKB = 4;
-
+                    SettingsData settingsData = new SettingsData();
                     File.WriteAllText(fileLocations.SettingsFileName, JsonConvert.SerializeObject(settingsData, Formatting.Indented));
                 }
                 catch (Exception ex)
@@ -57,6 +52,11 @@ namespace ToggleHypervisor.Services
                     RaiseLogEvent(this, loggerEventArgs);
                 }
             }
+        }
+
+        public static SettingsFileCreator GetInstance()
+        {
+            return new SettingsFileCreator();
         }
     }
 }

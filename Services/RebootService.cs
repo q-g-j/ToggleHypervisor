@@ -10,7 +10,7 @@ namespace ToggleHypervisor.Services
     {
         public RebootService()
         {
-            fileLogger = App.Current.Services.GetService<FileLogger>();
+            fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
         }
 

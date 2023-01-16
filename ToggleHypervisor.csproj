@@ -102,6 +102,7 @@
     <Compile Include="Models\FileLocations.cs" />
     <Compile Include="Services\AdminChecker.cs" />
     <Compile Include="Services\ComponentsInstaller.cs" />
+    <Compile Include="Services\FileLoggerFactory.cs" />
     <Compile Include="Services\HypervisorChecker.cs" />
     <Compile Include="Services\HypervisorSwitcher.cs" />
     <Compile Include="Services\RebootService.cs" />

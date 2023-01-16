@@ -10,13 +10,9 @@ namespace ToggleHypervisor.Services
     {
         public AdminChecker()
         {
-            fileLogger = App.Current.Services.GetService<FileLogger>();
-            LogEvent += fileLogger.LogWriteLine;
         }
 
-        private readonly FileLogger fileLogger;
-
-        public void ReRunAsAdmin()
+        public static void ReRunAsAdmin()
         {
 
             if (! IsAdmin())
@@ -32,7 +28,7 @@ namespace ToggleHypervisor.Services
             }
         }
 
-        private bool IsAdmin()
+        private static bool IsAdmin()
         {
             // check if the current user is an administrator
             WindowsIdentity identity = WindowsIdentity.GetCurrent();

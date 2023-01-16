@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using ToggleHypervisor.Models;
 
 namespace ToggleHypervisor.Services
 {
@@ -10,7 +11,8 @@ namespace ToggleHypervisor.Services
     {
         public ComponentsInstaller()
         {
-            fileLogger = App.Current.Services.GetService<FileLogger>();
+            var settingsData = App.Current.Services.GetService<SettingsData>();
+            fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
         }
 

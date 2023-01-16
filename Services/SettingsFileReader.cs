@@ -13,8 +13,7 @@ namespace ToggleHypervisor.Services
         public SettingsFileReader()
         {
             fileLocations = App.Current.Services.GetService<FileLocations>();
-
-            fileLogger = App.Current.Services.GetService<FileLogger>();
+            fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
         }
 
@@ -47,7 +46,14 @@ namespace ToggleHypervisor.Services
                 RaiseLogEvent(this, loggerEventArgs);
             }
 
-            return settingsData;
+            if (settingsData != null)
+            {
+                return settingsData;
+            }
+            else
+            {
+                return new SettingsData();
+            }
         }
     }
 }
