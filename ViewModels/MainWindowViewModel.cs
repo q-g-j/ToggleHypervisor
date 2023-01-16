@@ -13,17 +13,14 @@ namespace ToggleHypervisor.ViewModels
     {
         public MainWindowViewModel()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
-
-            if (settingsData == null)
-            {
-                settingsData = App.Current.Services.GetService<SettingsData>();
-            }
+            settingsData = App.Current.Services.GetService<SettingsData>();
 
             var sd = settingsFileReader.Load();
             settingsData.MaxLogFileSizeInKB = sd.MaxLogFileSizeInKB;
             settingsData.RebootAfterToggle = sd.RebootAfterToggle;
+
+            fileLogger = FileLoggerFactory.GetFileLogger();
+            LogEvent += fileLogger.LogWriteLine;
 
             Task.Run(() =>
             {
@@ -41,7 +38,7 @@ namespace ToggleHypervisor.ViewModels
             });
         }
 
-        private SettingsData settingsData;
+        private readonly SettingsData settingsData;
         private MainPageViewModel mainPageViewModel;
         private DetailsPageViewModel detailsPageViewModel;
 
