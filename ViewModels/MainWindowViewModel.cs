@@ -1,18 +1,9 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Logging;
+﻿using Logging;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.ComponentModel;
-using System.Configuration;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using ToggleHypervisor.Models;
-using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 
 namespace ToggleHypervisor.ViewModels

@@ -1,15 +1,8 @@
 ﻿using Logging;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using ToggleHypervisor.Models;
-using static System.Diagnostics.Debug;
 
 namespace ToggleHypervisor.Services
 {

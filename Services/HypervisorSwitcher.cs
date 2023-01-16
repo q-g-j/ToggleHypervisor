@@ -1,13 +1,7 @@
 ﻿using Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using static System.Diagnostics.Debug;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToggleHypervisor.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -30,9 +24,7 @@ namespace ToggleHypervisor.Services
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows),
-                                       Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess
-                                           ? @"Sysnative\cmd.exe"
-                                           : @"System32\cmd.exe"),
+                    Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess ? @"Sysnative\cmd.exe" : @"System32\cmd.exe"),
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true

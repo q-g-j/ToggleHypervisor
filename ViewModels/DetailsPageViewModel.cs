@@ -1,17 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 using Logging;
 using ToggleHypervisor.Models;
-using System.Collections.Generic;
 
 namespace ToggleHypervisor.ViewModels
 {
@@ -50,8 +45,8 @@ namespace ToggleHypervisor.ViewModels
         private readonly Task[] checkTasks = new Task[2];
 
         private readonly FileLogger fileLogger;
-        private SettingsData settingsData;
-        private MainWindowViewModel mainWindowViewModel;
+        private readonly SettingsData settingsData;
+        private readonly MainWindowViewModel mainWindowViewModel;
 
         private string labelStatusComponentsInstalled = "Hyper-V components installed:";
         public string LabelStatusComponentsInstalled
@@ -180,9 +175,12 @@ namespace ToggleHypervisor.ViewModels
         {
             return new Task(() =>
             {
+                bool isHypervisorlaunchtypeFlagSet = false;
+
                 if (hypervisorChecker.IsHypervisorlaunchtypeFlagSet())
                 {
                     LabelStatusHypervisorlaunchtypeResult = "Yes";
+                    isHypervisorlaunchtypeFlagSet = true;
                 }
                 else
                 {
@@ -195,6 +193,17 @@ namespace ToggleHypervisor.ViewModels
                 {
                     LabelStatusOverallVisibility = "Visible";
                     LabelStatusOverallResultVisibility = "Visible";
+                }
+                bool isEnabledOverall = hypervisorChecker.IsEnabledOverall();
+                if (
+                isEnabledOverall && ! isHypervisorlaunchtypeFlagSet ||
+                ! isEnabledOverall && isHypervisorlaunchtypeFlagSet)
+                {
+                    ButtonRebootVisibility = "Visible";
+                }
+                else
+                {
+                    ButtonRebootVisibility = "Hidden";
                 }
             });
         }

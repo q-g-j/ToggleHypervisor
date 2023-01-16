@@ -5,11 +5,7 @@ using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 using ToggleHypervisor.ViewModels;
 using ToggleHypervisor.Models;
-using System.IO;
-using static System.Diagnostics.Debug;
-using System.Threading.Tasks;
 using Logging;
-using System.Reflection;
 
 namespace ToggleHypervisor
 {

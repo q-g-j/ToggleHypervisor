@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ToggleHypervisor.Models;
-using System.Windows.Shapes;
 using Logging;
 using System.Reflection;
-using System.Threading;
-using static System.Diagnostics.Debug;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ToggleHypervisor.Services

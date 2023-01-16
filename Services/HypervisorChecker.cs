@@ -3,7 +3,6 @@ using System.Management;
 using System.Diagnostics;
 using System.IO;
 using Logging;
-using ToggleHypervisor.Models;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 

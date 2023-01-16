@@ -1,15 +1,7 @@
 ﻿using Logging;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using ToggleHypervisor.Models;
 using ToggleHypervisor.Services;
 
 namespace ToggleHypervisor.ViewModels
