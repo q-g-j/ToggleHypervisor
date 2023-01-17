@@ -5,6 +5,9 @@ Useful if you want to be able to quickly alternate between Microsoft's Hyper-V v
  
  Copyright 2023 Jann Emken
  
+ **---- Work in progress ----**<br/>
+ *(The program is fully functional, but needs styling.)*
+ 
  ### Features
  - **In the main view:**
      - toggle the hypervisor boot flag
