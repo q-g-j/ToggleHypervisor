@@ -1,10 +1,5 @@
-﻿using Logging;
+﻿using QGJSoft.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToggleHypervisor.Models;
 
 namespace ToggleHypervisor.Services
@@ -13,8 +8,15 @@ namespace ToggleHypervisor.Services
     {
         public static FileLogger GetFileLogger()
         {
-            var settingsData = App.Current.Services.GetService<SettingsData>();
-            return new FileLogger("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB);
+            if (fileLoggerSingleton == null)
+            {
+                var settingsData = App.Current.Services.GetService<SettingsData>();
+                fileLoggerSingleton= new FileLogger("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB);
+            }
+
+            return fileLoggerSingleton;
         }
+
+        private static FileLogger fileLoggerSingleton = null;
     }
 }

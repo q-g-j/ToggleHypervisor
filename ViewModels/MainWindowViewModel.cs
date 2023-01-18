@@ -1,4 +1,4 @@
-﻿using Logging;
+﻿using QGJSoft.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Threading.Tasks;

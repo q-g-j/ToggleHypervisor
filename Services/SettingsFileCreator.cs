@@ -8,7 +8,7 @@ using System.IO;
 using Newtonsoft.Json;
 using ToggleHypervisor.Models;
 using Microsoft.Extensions.DependencyInjection;
-using Logging;
+using QGJSoft.Logging;
 using System.Reflection;
 
 namespace ToggleHypervisor.Services

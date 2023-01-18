@@ -5,7 +5,7 @@ using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 using ToggleHypervisor.ViewModels;
 using ToggleHypervisor.Models;
-using Logging;
+using QGJSoft.Logging;
 
 namespace ToggleHypervisor
 {
@@ -32,6 +32,7 @@ namespace ToggleHypervisor
 
             services.AddSingleton<SettingsData>();
             services.AddSingleton<FileLocations>();
+            services.AddSingleton<FileLogger>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainPageViewModel>();
             services.AddSingleton<DetailsPageViewModel>();

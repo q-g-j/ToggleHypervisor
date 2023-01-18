@@ -2,7 +2,7 @@
 using System.Management;
 using System.Diagnostics;
 using System.IO;
-using Logging;
+using QGJSoft.Logging;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 

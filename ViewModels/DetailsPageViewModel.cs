@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
-using Logging;
+using QGJSoft.Logging;
 using ToggleHypervisor.Models;
 
 namespace ToggleHypervisor.ViewModels

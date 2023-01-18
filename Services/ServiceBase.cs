@@ -1,4 +1,4 @@
-﻿using Logging;
+﻿using QGJSoft.Logging;
 using System;
 
 namespace ToggleHypervisor.Services
