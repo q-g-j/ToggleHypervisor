@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using QGJSoft.Logging;
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ToggleHypervisor.Services
 {
