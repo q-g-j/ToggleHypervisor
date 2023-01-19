@@ -223,9 +223,6 @@
     <EmbeddedResource Include="Assets\Icons\computers.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\computers.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Assets\Icons\computers-128x128.png" />
     <EmbeddedResource Include="Assets\Icons\computers-16x16.png" />
     <EmbeddedResource Include="Assets\Icons\computers-256x256.png" />
