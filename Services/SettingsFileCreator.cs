@@ -28,29 +28,23 @@ namespace ToggleHypervisor.Services
 
         public void Create()
         {
-            string appDataRoaming = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            string settingsFolder = "ToggleHypervisor";
-            string settingsFile = "Settings.json";
-            fileLocations.SettingsFolderName = Path.Combine(appDataRoaming, settingsFolder);
-            fileLocations.SettingsFileName = Path.Combine(appDataRoaming, settingsFolder, settingsFile);
-
-            if (!File.Exists(fileLocations.SettingsFileName))
+            string appDataRoaming = fileLocations.AppDataRoaming;
+            string settingsFolder = fileLocations.SettingsFolderName;
+            string settingsFile = fileLocations.SettingsFileName;
+            try
             {
-                try
-                {
-                    Directory.CreateDirectory(Path.Combine(appDataRoaming, settingsFolder));
-                    SettingsData settingsData = new SettingsData();
-                    File.WriteAllText(fileLocations.SettingsFileName, JsonConvert.SerializeObject(settingsData, Formatting.Indented));
-                }
-                catch (Exception ex)
-                {
-                    var loggerEventArgs = new LoggerEventArgs(
-                        String.Empty,
-                        GetType().Name,
-                        MethodBase.GetCurrentMethod().Name,
-                        ex);
-                    RaiseLogEvent(this, loggerEventArgs);
-                }
+                Directory.CreateDirectory(Path.Combine(appDataRoaming, settingsFolder));
+                SettingsData settingsData = new SettingsData();
+                File.WriteAllText(fileLocations.SettingsFileName, JsonConvert.SerializeObject(settingsData, Formatting.Indented));
+            }
+            catch (Exception ex)
+            {
+                var loggerEventArgs = new LoggerEventArgs(
+                    String.Empty,
+                    GetType().Name,
+                    MethodBase.GetCurrentMethod().Name,
+                    ex);
+                RaiseLogEvent(this, loggerEventArgs);
             }
         }
 

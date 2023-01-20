@@ -8,11 +8,8 @@ namespace ToggleHypervisor.Services
     {
         public static FileLogger GetFileLogger()
         {
-            if (fileLoggerSingleton == null)
-            {
-                var settingsData = App.Current.Services.GetService<SettingsData>();
-                fileLoggerSingleton= new FileLogger("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB);
-            }
+            var settingsData = App.Current.Services.GetService<SettingsData>();
+            fileLoggerSingleton = new FileLogger("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB);
 
             return fileLoggerSingleton;
         }

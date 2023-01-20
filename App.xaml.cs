@@ -6,6 +6,7 @@ using ToggleHypervisor.Views;
 using ToggleHypervisor.ViewModels;
 using ToggleHypervisor.Models;
 using QGJSoft.Logging;
+using System.IO;
 
 namespace ToggleHypervisor
 {
@@ -17,7 +18,18 @@ namespace ToggleHypervisor
 
             Services = ConfigureServices();
 
-            SettingsFileCreator.GetInstance().Create();
+            var fileLocations = Current.Services.GetService<FileLocations>();
+
+            fileLocations.AppDataRoaming = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+            string folderName = "ToggleHypervisor";
+            string fileName = "Settings.json";
+            fileLocations.SettingsFolderName = Path.Combine(fileLocations.AppDataRoaming, folderName);
+            fileLocations.SettingsFileName = Path.Combine(fileLocations.AppDataRoaming, folderName, fileName);
+
+            if (!File.Exists(fileLocations.SettingsFileName))
+            {
+                SettingsFileCreator.GetInstance().Create();
+            }
 
             InitializeComponent();
         }
