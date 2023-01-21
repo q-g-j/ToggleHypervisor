@@ -17,8 +17,9 @@ Useful if you want to be able to quickly alternate between Microsoft's Hyper-V v
      - install the the Hyper-V Hypervisor if not installed
      - set "reboot on toggle" (gets remembered via a settings file)
  
- ### Dependencies 
-**ToggleHypervisor** uses my other project **[FileLogger](https://github.com/q-g-j/FileLogger)** for error logging to a file (default location of the file is the same as the EXE).<br/>
+ ### Requirements:
+ - A Windows version that supports the optional feature "Hyper-V", like Win10 Pro / Win11 Pro / Windows Server. It will open on Windows 10/11 Home but show an error and close.
+- This program uses my other project **[FileLogger](https://github.com/q-g-j/FileLogger)** for error logging to a file (default location of the file is the same as the EXE).<br/>
  It is included as a git submodule. Use the following git commands to fetch it:
 
 ```
