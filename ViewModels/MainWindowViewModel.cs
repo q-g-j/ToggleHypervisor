@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using ToggleHypervisor.Models;
 using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
+using System.Windows;
 
 namespace ToggleHypervisor.ViewModels
 {
@@ -30,6 +31,23 @@ namespace ToggleHypervisor.ViewModels
                     );
                 RaiseLogEvent(this, loggerEventArgs);
             });
+
+            WindowsVersionChecker windowsVersionChecker = new WindowsVersionChecker();
+
+            if (windowsVersionChecker.HasOSChanged())
+            {
+                var settingsData = App.Current.Services.GetService<SettingsData>();
+                settingsData.LastKnownOSVersion = windowsVersionChecker.OsFullVersionString;
+                SettingsFileWriter settingsFileWriter = new SettingsFileWriter();
+                settingsFileWriter.Write();
+
+                windowsVersionChecker = new WindowsVersionChecker();
+                if (!windowsVersionChecker.IsHyperVCapable())
+                {
+                    var messageBoxResult = MessageBox.Show("Your Windows version doesn't support Hyper-V.\n\nPress OK to close the application.", "Error", MessageBoxButton.OK);
+                    App.Current.Shutdown();
+                }
+            }
         }
 
         private MainPageViewModel mainPageViewModel;

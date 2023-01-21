@@ -14,8 +14,6 @@ namespace ToggleHypervisor
     {
         public App()
         {
-            AdminChecker.ReRunAsAdmin();
-
             Services = ConfigureServices();
 
             string folderName = "ToggleHypervisor";
@@ -24,7 +22,7 @@ namespace ToggleHypervisor
             var fileLocations = Current.Services.GetService<FileLocations>();
             fileLocations.AppDataRoaming = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
             fileLocations.SettingsFolderName = Path.Combine(fileLocations.AppDataRoaming, folderName);
-            fileLocations.SettingsFileName = Path.Combine(fileLocations.AppDataRoaming, folderName, fileName);
+            fileLocations.SettingsFileName = Path.Combine(fileLocations.SettingsFolderName, fileName);
 
             var settingsData = Current.Services.GetService<SettingsData>();
 

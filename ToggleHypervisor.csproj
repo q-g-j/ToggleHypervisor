@@ -51,7 +51,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -64,10 +64,10 @@
     <ManifestKeyFile>ToggleHypervisor_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -76,8 +76,9 @@
   <PropertyGroup>
     <ApplicationIcon>Assets\Icons\computers.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -105,7 +106,6 @@
     </ApplicationDefinition>
     <Compile Include="Models\SettingsData.cs" />
     <Compile Include="Models\FileLocations.cs" />
-    <Compile Include="Services\AdminChecker.cs" />
     <Compile Include="Services\ComponentsInstaller.cs" />
     <Compile Include="Services\FileLoggerFactory.cs" />
     <Compile Include="Services\HypervisorChecker.cs" />
@@ -116,6 +116,7 @@
     <Compile Include="Services\SettingsFileReader.cs" />
     <Compile Include="Services\SettingsFileValidator.cs" />
     <Compile Include="Services\SettingsFileWriter.cs" />
+    <Compile Include="Services\WindowsVersionChecker.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
