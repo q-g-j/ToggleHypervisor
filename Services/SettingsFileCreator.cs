@@ -28,14 +28,13 @@ namespace ToggleHypervisor.Services
 
         public void Create()
         {
-            string appDataRoaming = fileLocations.AppDataRoaming;
             string settingsFolder = fileLocations.SettingsFolderName;
             string settingsFile = fileLocations.SettingsFileName;
             try
             {
-                Directory.CreateDirectory(Path.Combine(appDataRoaming, settingsFolder));
+                Directory.CreateDirectory(settingsFolder);
                 SettingsData settingsData = new SettingsData();
-                File.WriteAllText(fileLocations.SettingsFileName, JsonConvert.SerializeObject(settingsData, Formatting.Indented));
+                File.WriteAllText(settingsFile, JsonConvert.SerializeObject(settingsData, Formatting.Indented));
             }
             catch (Exception ex)
             {

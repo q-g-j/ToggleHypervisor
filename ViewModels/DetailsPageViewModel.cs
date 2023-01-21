@@ -239,7 +239,7 @@ namespace ToggleHypervisor.ViewModels
             LabelStatusComponentsInstalledResult = String.Empty;
             LabelStatusHypervisorlaunchtypeResult = String.Empty;
 
-            var sd = settingsFileReader.Load();
+            var sd = SettingsFileReader.Load();
             settingsData.MaxLogFileSizeInKB = sd.MaxLogFileSizeInKB;
             settingsData.RebootAfterToggle = sd.RebootAfterToggle;
 

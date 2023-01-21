@@ -114,6 +114,7 @@
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\SettingsFileCreator.cs" />
     <Compile Include="Services\SettingsFileReader.cs" />
+    <Compile Include="Services\SettingsFileValidator.cs" />
     <Compile Include="Services\SettingsFileWriter.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />

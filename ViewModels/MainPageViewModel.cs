@@ -143,7 +143,7 @@ namespace ToggleHypervisor.ViewModels
 
         public void RunChecks()
         {
-            var sd = settingsFileReader.Load();
+            var sd = SettingsFileReader.Load();
             settingsData.MaxLogFileSizeInKB = sd.MaxLogFileSizeInKB;
             settingsData.RebootAfterToggle = sd.RebootAfterToggle;
 

@@ -18,15 +18,29 @@ namespace ToggleHypervisor
 
             Services = ConfigureServices();
 
-            var fileLocations = Current.Services.GetService<FileLocations>();
-
-            fileLocations.AppDataRoaming = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
             string folderName = "ToggleHypervisor";
             string fileName = "Settings.json";
+
+            var fileLocations = Current.Services.GetService<FileLocations>();
+            fileLocations.AppDataRoaming = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
             fileLocations.SettingsFolderName = Path.Combine(fileLocations.AppDataRoaming, folderName);
             fileLocations.SettingsFileName = Path.Combine(fileLocations.AppDataRoaming, folderName, fileName);
 
-            if (!File.Exists(fileLocations.SettingsFileName))
+            var settingsData = Current.Services.GetService<SettingsData>();
+
+            bool isSettingsFileValid = false;
+
+            if (SettingsFileValidator.FileExists())
+            {
+                if (SettingsFileValidator.IsValid())
+                {
+                    isSettingsFileValid = true;
+                    var settingsDataInFile = SettingsFileReader.Load();
+                    settingsData.MaxLogFileSizeInKB = settingsDataInFile.MaxLogFileSizeInKB;
+                    settingsData.RebootAfterToggle = settingsDataInFile.RebootAfterToggle;
+                }
+            }
+            if (!isSettingsFileValid)
             {
                 SettingsFileCreator.GetInstance().Create();
             }

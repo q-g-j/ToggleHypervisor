@@ -8,25 +8,12 @@ using ToggleHypervisor.Models;
 
 namespace ToggleHypervisor.Services
 {
-    public class SettingsFileReader : ServiceBase
+    public class SettingsFileReader
     {
-        public SettingsFileReader()
+        public static SettingsData Load()
         {
-            fileLocations = App.Current.Services.GetService<FileLocations>();
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
-        }
+            var fileLocations = App.Current.Services.GetService<FileLocations>();
 
-        private readonly FileLogger fileLogger;
-        private readonly FileLocations fileLocations;
-
-        public bool FileExists()
-        {
-            return File.Exists(fileLocations.SettingsFileName);
-        }
-
-        public SettingsData Load()
-        {
             SettingsData settingsData = null;
 
             try
@@ -36,14 +23,9 @@ namespace ToggleHypervisor.Services
                     settingsData = JsonConvert.DeserializeObject<SettingsData>(streamReader.ReadToEnd());
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var loggerEventArgs = new LoggerEventArgs(
-                    String.Empty,
-                    GetType().Name,
-                    MethodBase.GetCurrentMethod().Name,
-                    ex);
-                RaiseLogEvent(this, loggerEventArgs);
+                return new SettingsData();
             }
 
             if (settingsData != null)
