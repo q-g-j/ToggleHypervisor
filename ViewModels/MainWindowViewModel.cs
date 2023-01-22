@@ -35,9 +35,10 @@ namespace ToggleHypervisor.ViewModels
 
             WindowsVersionChecker windowsVersionChecker = new WindowsVersionChecker();
 
+            var settingsData = App.Current.Services.GetService<SettingsData>();
+
             if (windowsVersionChecker.HasOSChanged())
             {
-                var settingsData = App.Current.Services.GetService<SettingsData>();
                 settingsData.LastKnownOSVersion = windowsVersionChecker.OsFullVersionString;
                 SettingsFileWriter settingsFileWriter = new SettingsFileWriter();
                 settingsFileWriter.Write();
@@ -45,10 +46,21 @@ namespace ToggleHypervisor.ViewModels
                 windowsVersionChecker = new WindowsVersionChecker();
                 if (!windowsVersionChecker.IsHyperVCapable())
                 {
+                    settingsData.IsOSHyperVCapable = false;
                     var messageBoxResult = MessageBox.Show("Your Windows version doesn't support Hyper-V.\n\nPress OK to close the application.", "Error", MessageBoxButton.OK);
                     App.Current.Shutdown();
                 }
+                else
+                {
+                    settingsData.IsOSHyperVCapable = true;
+                }
             }
+            else if(!settingsData.IsOSHyperVCapable)
+            {
+                var messageBoxResult = MessageBox.Show("Your Windows version doesn't support Hyper-V.\n\nPress OK to close the application.", "Error", MessageBoxButton.OK);
+                App.Current.Shutdown();
+            }
+
         }
 
         private MainPageViewModel mainPageViewModel;

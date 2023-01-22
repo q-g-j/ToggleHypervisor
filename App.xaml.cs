@@ -36,6 +36,7 @@ namespace ToggleHypervisor
                     isSettingsFileValid = true;
                     var settingsDataInFile = SettingsFileReader.Load();
                     settingsData.LastKnownOSVersion = settingsDataInFile.LastKnownOSVersion;
+                    settingsData.IsOSHyperVCapable = settingsDataInFile.IsOSHyperVCapable;
                     settingsData.MaxLogFileSizeInKB = settingsDataInFile.MaxLogFileSizeInKB;
                     settingsData.RebootAfterToggle = settingsDataInFile.RebootAfterToggle;
                 }
