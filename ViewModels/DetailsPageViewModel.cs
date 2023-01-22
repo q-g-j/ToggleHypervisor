@@ -14,6 +14,9 @@ namespace ToggleHypervisor.ViewModels
     {
         public DetailsPageViewModel()
         {
+            fileLogger = FileLoggerFactory.GetFileLogger();
+            LogEvent += fileLogger.LogWriteLine;
+
             ButtonBackCommand = new RelayCommand(() => ButtonBackAction());
             ButtonToggleFlagCommand = new RelayCommand(() => ButtonToggleFlagAction());
             ButtonToggleComponentsCommand = new RelayCommand(() => ButtonToggleComponentsAction());
@@ -33,14 +36,9 @@ namespace ToggleHypervisor.ViewModels
             componentsInstaller = new ComponentsInstaller();
             componentsRemover = new ComponentsRemover();
             settingsFileWriter = new SettingsFileWriter();
-
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
-
-            wasFlagInitiallySet = hypervisorChecker.IsHypervisorlaunchtypeFlagSet();
-            wereComponentsInitiallyInstalled = hypervisorChecker.AreComponentsInstalled();
         }
 
+        private bool firstRun = true;
         private bool wasFlagInitiallySet = false;
         private bool isFlagSet = false;
         private bool isFlagCheckFinished = false;
@@ -48,6 +46,7 @@ namespace ToggleHypervisor.ViewModels
         private bool areComponentsInstalled = false;
         private bool isComponentsCheckFinished = false;
 
+        private Task setInitialBooleansTask;
         private delegate Task CheckTaskDelegate();
         private readonly CheckTaskDelegate[] checkTaskDelegates;
         private readonly Task[] checkTasks = new Task[2];
@@ -271,8 +270,24 @@ namespace ToggleHypervisor.ViewModels
             });
         }
 
+        private Task GetIntitialBooleansTask()
+        {
+            return new Task(() =>
+            {
+                wasFlagInitiallySet = hypervisorChecker.IsHypervisorlaunchtypeFlagSet();
+                wereComponentsInitiallyInstalled = hypervisorChecker.AreComponentsInstalled();
+            });
+        }
+
         public void RunChecks()
         {
+            if (firstRun)
+            {
+                firstRun = false;
+                setInitialBooleansTask = GetIntitialBooleansTask();
+                setInitialBooleansTask.Start();
+            }
+
             LabelStatusComponentsInstalledResult = "";
             LabelStatusHypervisorlaunchtypeResult = "";
             ButtonToggleComponentsText = "Wait...";
@@ -301,8 +316,13 @@ namespace ToggleHypervisor.ViewModels
 
         private void ToggleRebootButtonVisibility()
         {
-            Task.Run(() =>
+            Task.Run(async () =>
             {
+                while (setInitialBooleansTask.Status != TaskStatus.RanToCompletion)
+                {
+                    await Task.Delay(10);
+                }
+
                 bool runLoop = true;
                 while (runLoop)
                 {
@@ -319,11 +339,9 @@ namespace ToggleHypervisor.ViewModels
                     runLoop = !areAllTasksFinished;
                 }
 
-                bool isEnabledOverall = hypervisorChecker.IsEnabledOverall();
+                //bool isEnabledOverall = hypervisorChecker.IsEnabledOverall();
 
                 if (
-                    isEnabledOverall != isFlagSet ||
-                    isEnabledOverall != areComponentsInstalled ||
                     wasFlagInitiallySet != isFlagSet ||
                     wereComponentsInitiallyInstalled != areComponentsInstalled
                     )

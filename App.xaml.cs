@@ -46,6 +46,16 @@ namespace ToggleHypervisor
             }
 
             InitializeComponent();
+
+            MainWindowViewModel mainWindowViewModel = Services.GetService<MainWindowViewModel>();
+            mainWindowViewModel.Initialize();
+            mainWindowViewModel.CurrentPage = new MainPage();
+
+            MainWindow = new MainWindow
+            {
+                DataContext = mainWindowViewModel
+            };
+            MainWindow.Show();
         }
 
         public new static App Current => (App)Application.Current;
@@ -64,21 +74,6 @@ namespace ToggleHypervisor
             services.AddSingleton<DetailsPageViewModel>();
 
             return services.BuildServiceProvider();
-        }
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            MainWindowViewModel mainWindowViewModel = Services.GetService<MainWindowViewModel>();
-            mainWindowViewModel.Initialize();
-            mainWindowViewModel.CurrentPage = new MainPage();
-
-            MainWindow = new MainWindow
-            {
-                DataContext = mainWindowViewModel
-            };
-            MainWindow.Show();
         }
     }
 }

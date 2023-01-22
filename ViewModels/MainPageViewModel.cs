@@ -7,6 +7,7 @@ using System.Windows.Input;
 using ToggleHypervisor.Models;
 using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
+using System.Diagnostics;
 
 namespace ToggleHypervisor.ViewModels
 {
@@ -14,7 +15,8 @@ namespace ToggleHypervisor.ViewModels
     {
         public MainPageViewModel()
         {
-            //System.Diagnostics.Debug.WriteLine("MainPageViewModel constructor");
+            fileLogger = FileLoggerFactory.GetFileLogger();
+            LogEvent += fileLogger.LogWriteLine;
 
             OpenDetailsCommand = new RelayCommand(OpenDetailsAction);
             ToggleCommand = new RelayCommand(ToggleAction);
@@ -35,10 +37,9 @@ namespace ToggleHypervisor.ViewModels
 
             hypervisorChecker = new HypervisorChecker();
             hypervisorSwitcher = new HypervisorSwitcher();
-
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
         }
+
+        Stopwatch stopWatch = new Stopwatch();
 
         private bool isHypervisorlaunchtypeSet;
 
@@ -123,7 +124,7 @@ namespace ToggleHypervisor.ViewModels
         {
             return new Task(() =>
             {
-                LabelStatusOverallResult = String.Empty;
+                LabelStatusOverallResult = "";
 
                 if (hypervisorChecker.IsEnabledOverall())
                 {
