@@ -34,14 +34,13 @@ namespace ToggleHypervisor.ViewModels
             });
 
             WindowsVersionChecker windowsVersionChecker = new WindowsVersionChecker();
+            SettingsFileWriter settingsFileWriter = new SettingsFileWriter();
 
             var settingsData = App.Current.Services.GetService<SettingsData>();
 
             if (windowsVersionChecker.HasOSChanged())
             {
                 settingsData.LastKnownOSVersion = windowsVersionChecker.OsFullVersionString;
-                SettingsFileWriter settingsFileWriter = new SettingsFileWriter();
-                settingsFileWriter.Write();
 
                 windowsVersionChecker = new WindowsVersionChecker();
                 if (!windowsVersionChecker.IsHyperVCapable())
@@ -54,6 +53,8 @@ namespace ToggleHypervisor.ViewModels
                 {
                     settingsData.IsOSHyperVCapable = true;
                 }
+
+                settingsFileWriter.Write();
             }
             else if(!settingsData.IsOSHyperVCapable)
             {
