@@ -8,12 +8,6 @@ namespace ToggleHypervisor.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged, IFileLogger
     {
-        protected readonly HypervisorChecker hypervisorChecker = new HypervisorChecker();
-        protected readonly HypervisorSwitcher hypervisorSwitcher = new HypervisorSwitcher();
-        protected readonly ComponentsInstaller componentsInstaller = new ComponentsInstaller();
-        protected readonly SettingsFileReader settingsFileReader = new SettingsFileReader();
-        protected readonly SettingsFileWriter settingsFileWriter = new SettingsFileWriter();
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

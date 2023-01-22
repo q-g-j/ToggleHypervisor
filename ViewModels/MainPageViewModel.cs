@@ -33,6 +33,9 @@ namespace ToggleHypervisor.ViewModels
                 mainWindowViewModel = App.Current.Services.GetService<MainWindowViewModel>();
             }
 
+            hypervisorChecker = new HypervisorChecker();
+            hypervisorSwitcher = new HypervisorSwitcher();
+
             fileLogger = FileLoggerFactory.GetFileLogger();
             LogEvent += fileLogger.LogWriteLine;
         }
@@ -44,8 +47,11 @@ namespace ToggleHypervisor.ViewModels
         private readonly Task[] checkTasks = new Task[2];
 
         private readonly FileLogger fileLogger;
-        private SettingsData settingsData;
-        private MainWindowViewModel mainWindowViewModel;
+        private readonly SettingsData settingsData;
+        private readonly MainWindowViewModel mainWindowViewModel;
+
+        private readonly HypervisorChecker hypervisorChecker;
+        private readonly HypervisorSwitcher hypervisorSwitcher;
 
         private string labelStatusOverall = "Hyper-V enabled and usable:";
         public string LabelStatusOverall

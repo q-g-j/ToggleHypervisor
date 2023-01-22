@@ -12,7 +12,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -48,13 +48,13 @@
         <Button
             Grid.Column="2"
             Grid.Row="0"
-            Width="50"
+            Width="80"
             Height="20"
-            Content="Fix"
+            Content="Toggle"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            IsEnabled="{Binding ButtonFixFlagIsEnabled}"
-            Command="{Binding ButtonFixFlagCommand}">
+            IsEnabled="{Binding ButtonToggleFlagIsEnabled}"
+            Command="{Binding ButtonToggleFlagCommand}">
         </Button>
         
         <!-- Components Status: -->
@@ -75,13 +75,13 @@
         <Button
             Grid.Column="2"
             Grid.Row="2"
-            Width="50"
+            Width="80"
             Height="20"
-            Content="Fix"
+            Content="{Binding ButtonToggleComponentsText}"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            IsEnabled="{Binding ButtonFixComponentsIsEnabled}"
-            Command="{Binding ButtonFixComponentsCommand}">
+            IsEnabled="{Binding ButtonToggleComponentsIsEnabled}"
+            Command="{Binding ButtonToggleComponentsCommand}">
         </Button>
         <Line
             Grid.Row="4"
@@ -122,6 +122,7 @@
                 Content="Back"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
+                IsEnabled="{Binding ButtonBackIsEnabled}"
                 Command="{Binding ButtonBackCommand}">
             </Button>
 

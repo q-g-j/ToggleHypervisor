@@ -46,20 +46,6 @@ namespace ToggleHypervisor
             InitializeComponent();
         }
 
-        private int property;
-        public int MyProperty
-        {
-            get
-            {
-                return property;
-            }
-            set
-            {
-                property = value;
-            }
-        }
-
-
         public new static App Current => (App)Application.Current;
 
         public IServiceProvider Services;
