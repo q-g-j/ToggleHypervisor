@@ -1,15 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using QGJSoft.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Management;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.XPath;
 using ToggleHypervisor.Models;
 
 namespace ToggleHypervisor.Services
@@ -35,6 +30,7 @@ namespace ToggleHypervisor.Services
             }
 
             var settingsData = App.Current.Services.GetService<SettingsData>();
+
             if (settingsData != null )
             {
                 if (settingsData.LastKnownOSVersion != OsFullVersionString)

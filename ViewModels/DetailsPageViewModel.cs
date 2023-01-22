@@ -389,7 +389,6 @@ namespace ToggleHypervisor.ViewModels
             ButtonToggleComponentsIsEnabled = "False";
             ButtonBackIsEnabled = "False";
             ButtonRebootVisibility = "Hidden";
-
             LabelStatusComponentsInstalledResult = "Wait...";
 
             Task.Run(() =>

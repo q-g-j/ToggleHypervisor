@@ -7,6 +7,7 @@ using ToggleHypervisor.Models;
 using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 using System.Windows;
+using System.Diagnostics;
 
 namespace ToggleHypervisor.ViewModels
 {

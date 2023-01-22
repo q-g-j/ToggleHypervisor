@@ -7,6 +7,7 @@ using ToggleHypervisor.ViewModels;
 using ToggleHypervisor.Models;
 using QGJSoft.Logging;
 using System.IO;
+using System.Diagnostics;
 
 namespace ToggleHypervisor
 {
@@ -34,6 +35,7 @@ namespace ToggleHypervisor
                 {
                     isSettingsFileValid = true;
                     var settingsDataInFile = SettingsFileReader.Load();
+                    settingsData.LastKnownOSVersion = settingsDataInFile.LastKnownOSVersion;
                     settingsData.MaxLogFileSizeInKB = settingsDataInFile.MaxLogFileSizeInKB;
                     settingsData.RebootAfterToggle = settingsDataInFile.RebootAfterToggle;
                 }
