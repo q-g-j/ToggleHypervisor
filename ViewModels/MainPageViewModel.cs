@@ -17,8 +17,7 @@ namespace ToggleHypervisor.ViewModels
     {
         public MainPageViewModel()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
+            LogEvent += FileLogger.LogWriteLine;
 
             OpenDetailsCommand = new RelayCommand(OpenDetailsAction);
             ToggleCommand = new RelayCommand(ToggleAction);
@@ -49,7 +48,6 @@ namespace ToggleHypervisor.ViewModels
         private readonly CheckTaskDelegate[] checkTaskDelegates;
         private readonly Task[] checkTasks = new Task[2];
 
-        private readonly FileLogger fileLogger;
         private readonly SettingsData settingsData;
         private readonly MainWindowViewModel mainWindowViewModel;
 
@@ -166,7 +164,7 @@ namespace ToggleHypervisor.ViewModels
                     MethodBase.GetCurrentMethod().ToString(),
                     ex
                     );
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
 
             settingsData.MaxLogFileSizeInKB = sd.MaxLogFileSizeInKB;

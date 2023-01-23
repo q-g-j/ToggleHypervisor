@@ -16,8 +16,8 @@ namespace ToggleHypervisor.ViewModels
     {
         public DetailsPageViewModel()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
+            settingsData = App.Current.Services.GetService<SettingsData>();
+            LogEvent += FileLogger.LogWriteLine;
 
             ButtonBackCommand = new RelayCommand(() => ButtonBackAction());
             ButtonToggleFlagCommand = new RelayCommand(() => ButtonToggleFlagAction());
@@ -29,7 +29,6 @@ namespace ToggleHypervisor.ViewModels
                 GetAreComponentsInstalledTask
             };
 
-            settingsData = App.Current.Services.GetService<SettingsData>();
             mainWindowViewModel = App.Current.Services.GetService<MainWindowViewModel>();
             mainPageViewModel = App.Current.Services.GetService<MainPageViewModel>();
 
@@ -52,7 +51,6 @@ namespace ToggleHypervisor.ViewModels
         private readonly CheckTaskDelegate[] checkTaskDelegates;
         private readonly Task[] checkTasks = new Task[2];
 
-        private readonly FileLogger fileLogger;
         private readonly SettingsData settingsData;
         private readonly MainWindowViewModel mainWindowViewModel;
         private readonly MainPageViewModel mainPageViewModel;
@@ -151,7 +149,7 @@ namespace ToggleHypervisor.ViewModels
                         MethodBase.GetCurrentMethod().ToString(),
                         ex
                         );
-                    RaiseLogEvent(this, loggerEventArgs);
+                    RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
                 }
 
                 OnPropertyChanged();
@@ -322,7 +320,7 @@ namespace ToggleHypervisor.ViewModels
                     MethodBase.GetCurrentMethod().ToString(),
                     ex
                     );
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
 
             settingsData.MaxLogFileSizeInKB = sd.MaxLogFileSizeInKB;

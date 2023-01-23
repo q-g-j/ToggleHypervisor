@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using QGJSoft.Logging;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using ToggleHypervisor.Models;
 
 namespace ToggleHypervisor.Services
 {
@@ -11,11 +13,11 @@ namespace ToggleHypervisor.Services
     {
         public HypervisorChecker()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
+            settingsData = App.Current.Services.GetService<SettingsData>();
+            LogEvent += FileLogger.LogWriteLine;
         }
 
-        private readonly FileLogger fileLogger;
+        private readonly SettingsData settingsData;
 
         public bool IsEnabledOverall()
         {
@@ -42,7 +44,7 @@ namespace ToggleHypervisor.Services
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
                     ex);
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
 
             return false;
@@ -99,7 +101,7 @@ namespace ToggleHypervisor.Services
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
                     ex);
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
 
             return true;
@@ -150,7 +152,7 @@ namespace ToggleHypervisor.Services
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
                     ex);
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
 
             return false;

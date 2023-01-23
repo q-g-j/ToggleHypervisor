@@ -15,16 +15,16 @@ namespace ToggleHypervisor.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public event Action<object, LoggerEventArgs> LogEvent;
+        public event Action<string, int, LoggerEventArgs> LogEvent;
 
-        void IFileLogger.OnLogEvent(object o, LoggerEventArgs eventArgs)
+        void IFileLogger.OnLogEvent(string logFileFullPath, int maxLogFileSize, LoggerEventArgs eventArgs)
         {
-            RaiseLogEvent(o, eventArgs);
+            RaiseLogEvent(logFileFullPath, maxLogFileSize, eventArgs);
         }
 
-        protected virtual void RaiseLogEvent(object o, LoggerEventArgs eventArgs)
+        protected virtual void RaiseLogEvent(string logFileFullPath, int maxLogFileSize, LoggerEventArgs eventArgs)
         {
-            LogEvent?.Invoke(o, eventArgs);
+            LogEvent?.Invoke(logFileFullPath, maxLogFileSize, eventArgs);
         }
     }
 }

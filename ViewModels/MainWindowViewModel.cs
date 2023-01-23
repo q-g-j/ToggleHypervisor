@@ -17,8 +17,8 @@ namespace ToggleHypervisor.ViewModels
     {
         public MainWindowViewModel()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
+            settingsData = App.Current.Services.GetService<SettingsData>();
+            LogEvent += FileLogger.LogWriteLine;
 
             Task.Run(() =>
             {
@@ -32,12 +32,10 @@ namespace ToggleHypervisor.ViewModels
                     MethodBase.GetCurrentMethod().Name,
                     null
                     );
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             });
 
             WindowsVersionChecker windowsVersionChecker = new WindowsVersionChecker();
-
-            var settingsData = App.Current.Services.GetService<SettingsData>();
 
             if (windowsVersionChecker.HasOSChanged())
             {
@@ -68,7 +66,7 @@ namespace ToggleHypervisor.ViewModels
                         MethodBase.GetCurrentMethod().ToString(),
                         ex
                         );
-                    RaiseLogEvent(this, loggerEventArgs);
+                    RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
                 }
             }
             else if(!settingsData.IsOSHyperVCapable)
@@ -82,7 +80,7 @@ namespace ToggleHypervisor.ViewModels
         private MainPageViewModel mainPageViewModel;
         private DetailsPageViewModel detailsPageViewModel;
 
-        private readonly FileLogger fileLogger;
+        private readonly SettingsData settingsData;
 
         private UserControl currentPage;
         public UserControl CurrentPage

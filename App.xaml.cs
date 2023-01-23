@@ -98,7 +98,6 @@ namespace ToggleHypervisor
 
             services.AddSingleton<SettingsData>();
             services.AddSingleton<FileLocations>();
-            services.AddSingleton<FileLogger>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainPageViewModel>();
             services.AddSingleton<DetailsPageViewModel>();

@@ -11,13 +11,13 @@ namespace ToggleHypervisor.Services
 {
     internal class WindowsVersionChecker : ServiceBase
     {
-        private readonly FileLogger fileLogger;
-
         public WindowsVersionChecker()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
+            settingsData = App.Current.Services.GetService<SettingsData>();
+            LogEvent += FileLogger.LogWriteLine;
         }
+
+        private readonly SettingsData settingsData;
 
         public string OsFullVersionString { get; set; } = "";
 
@@ -74,7 +74,7 @@ namespace ToggleHypervisor.Services
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
                     ex);
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
 
             return true;

@@ -11,11 +11,11 @@ namespace ToggleHypervisor.Services
     {
         public ComponentsInstaller()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
+            settingsData = App.Current.Services.GetService<SettingsData>();
+            LogEvent += FileLogger.LogWriteLine;
         }
 
-        private readonly FileLogger fileLogger;
+        private readonly SettingsData settingsData;
 
         public void Install()
         {
@@ -42,7 +42,7 @@ namespace ToggleHypervisor.Services
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
                     ex);
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
         }
     }

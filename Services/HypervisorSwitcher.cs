@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using ToggleHypervisor.Models;
 
 namespace ToggleHypervisor.Services
 {
@@ -11,11 +12,11 @@ namespace ToggleHypervisor.Services
     {
         public HypervisorSwitcher()
         {
-            fileLogger = FileLoggerFactory.GetFileLogger();
-            LogEvent += fileLogger.LogWriteLine;
+            settingsData = App.Current.Services.GetService<SettingsData>();
+            LogEvent += FileLogger.LogWriteLine;
         }
 
-        private readonly FileLogger fileLogger;
+        private readonly SettingsData settingsData;
 
         public void Switch(bool mode)
         {
@@ -44,7 +45,7 @@ namespace ToggleHypervisor.Services
                     GetType().Name,
                     MethodBase.GetCurrentMethod().Name,
                     ex);
-                RaiseLogEvent(this, loggerEventArgs);
+                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
         }
     }
