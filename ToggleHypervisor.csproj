@@ -113,10 +113,6 @@
     <Compile Include="Services\HypervisorSwitcher.cs" />
     <Compile Include="Services\RebootService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="Services\SettingsFileCreator.cs" />
-    <Compile Include="Services\SettingsFileReader.cs" />
-    <Compile Include="Services\SettingsFileValidator.cs" />
-    <Compile Include="Services\SettingsFileWriter.cs" />
     <Compile Include="Services\WindowsVersionChecker.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
@@ -221,6 +217,10 @@
     <ProjectReference Include="FileLogger\FileLogger.csproj">
       <Project>{a49d453a-136e-4798-a05c-cc8e1aa3539d}</Project>
       <Name>FileLogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="SettingsFile\SettingsFile.csproj">
+      <Project>{1c8bfaef-ad5a-4cd6-a39b-0df5359deeac}</Project>
+      <Name>SettingsFile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,8 @@ using ToggleHypervisor.Models;
 using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 using System.Diagnostics;
+using QGJSoft.SettingsFile;
+using System.Reflection;
 
 namespace ToggleHypervisor.ViewModels
 {
@@ -150,7 +152,23 @@ namespace ToggleHypervisor.ViewModels
 
         public void RunChecks()
         {
-            var sd = SettingsFileReader.Load();
+            var sd = new SettingsData();
+            try
+            {
+                var fileLocations = App.Current.Services.GetService<FileLocations>();
+                sd = SettingsFileReader<SettingsData>.Load(fileLocations.SettingsFileName);
+            }
+            catch (Exception ex)
+            {
+                var loggerEventArgs = new LoggerEventArgs(
+                    "",
+                    GetType().Name,
+                    MethodBase.GetCurrentMethod().ToString(),
+                    ex
+                    );
+                RaiseLogEvent(this, loggerEventArgs);
+            }
+
             settingsData.MaxLogFileSizeInKB = sd.MaxLogFileSizeInKB;
             settingsData.RebootAfterToggle = sd.RebootAfterToggle;
 

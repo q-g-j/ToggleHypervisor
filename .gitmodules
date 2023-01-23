@@ -1,3 +1,8 @@
 [submodule "FileLogger"]
 	path = FileLogger
 	url = https://github.com/q-g-j/FileLogger
+	branch = master
+[submodule "SettingsFile"]
+	path = SettingsFile
+	url = https://github.com/q-g-j/SettingsFile
+	branch = master

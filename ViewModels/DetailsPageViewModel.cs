@@ -7,6 +7,8 @@ using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 using QGJSoft.Logging;
 using ToggleHypervisor.Models;
+using QGJSoft.SettingsFile;
+using System.Reflection;
 
 namespace ToggleHypervisor.ViewModels
 {
@@ -35,7 +37,6 @@ namespace ToggleHypervisor.ViewModels
             hypervisorSwitcher = new HypervisorSwitcher();
             componentsInstaller = new ComponentsInstaller();
             componentsRemover = new ComponentsRemover();
-            settingsFileWriter = new SettingsFileWriter();
         }
 
         private bool firstRun = true;
@@ -60,7 +61,6 @@ namespace ToggleHypervisor.ViewModels
         private readonly HypervisorSwitcher hypervisorSwitcher;
         private readonly ComponentsInstaller componentsInstaller;
         private readonly ComponentsRemover componentsRemover;
-        private readonly SettingsFileWriter settingsFileWriter;
 
         private string labelStatusHypervisorlaunchtype = "Boot flag \"hypervisorlaunchtype\" set:";
         public string LabelStatusHypervisorlaunchtype
@@ -137,7 +137,23 @@ namespace ToggleHypervisor.ViewModels
             {
                 checkBoxRebootIsChecked = value;
                 settingsData.RebootAfterToggle = value;
-                settingsFileWriter.Write();
+                var fileLocations = App.Current.Services.GetService<FileLocations>();
+
+                try
+                {
+                    SettingsFileWriter<SettingsData>.Write(fileLocations.SettingsFileName, settingsData);
+                }
+                catch (Exception ex)
+                {
+                    var loggerEventArgs = new LoggerEventArgs(
+                        "",
+                        GetType().Name,
+                        MethodBase.GetCurrentMethod().ToString(),
+                        ex
+                        );
+                    RaiseLogEvent(this, loggerEventArgs);
+                }
+
                 OnPropertyChanged();
             }
         }
@@ -292,7 +308,23 @@ namespace ToggleHypervisor.ViewModels
             LabelStatusHypervisorlaunchtypeResult = "";
             ButtonToggleComponentsText = "Wait...";
 
-            var sd = SettingsFileReader.Load();
+            var sd = new SettingsData();
+            try
+            {
+                var fileLocations = App.Current.Services.GetService<FileLocations>();
+                sd = SettingsFileReader<SettingsData>.Load(fileLocations.SettingsFileName);
+            }
+            catch (Exception ex)
+            {
+                var loggerEventArgs = new LoggerEventArgs(
+                    "",
+                    GetType().Name,
+                    MethodBase.GetCurrentMethod().ToString(),
+                    ex
+                    );
+                RaiseLogEvent(this, loggerEventArgs);
+            }
+
             settingsData.MaxLogFileSizeInKB = sd.MaxLogFileSizeInKB;
             settingsData.RebootAfterToggle = sd.RebootAfterToggle;
 

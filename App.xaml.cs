@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using ToggleHypervisor.Services;
+using QGJSoft.SettingsFile;
 using ToggleHypervisor.Views;
 using ToggleHypervisor.ViewModels;
 using ToggleHypervisor.Models;
@@ -28,13 +28,28 @@ namespace ToggleHypervisor
             var settingsData = Current.Services.GetService<SettingsData>();
 
             bool isSettingsFileValid = false;
+            bool isFileAccessError = false;
 
-            if (SettingsFileValidator.FileExists())
+            if (SettingsFileValidator<SettingsData>.FileExists(fileLocations.SettingsFileName))
             {
-                if (SettingsFileValidator.IsValid())
+                if (SettingsFileValidator<SettingsData>.IsValid(fileLocations.SettingsFileName))
                 {
+                    var settingsDataInFile = new SettingsData();
+
                     isSettingsFileValid = true;
-                    var settingsDataInFile = SettingsFileReader.Load();
+                    try
+                    {
+                        settingsDataInFile = SettingsFileReader<SettingsData>.Load(fileLocations.SettingsFileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        isFileAccessError = true;
+                        MessageBox.Show("There was an error processing the settings file:\n\n" +
+                            ex.GetType() + ":\n" + ex.Message + "\n\n" +
+                            "Press OK to close the application.", "Error", MessageBoxButton.OK);
+                        Current.Shutdown();
+                    }
+
                     settingsData.LastKnownOSVersion = settingsDataInFile.LastKnownOSVersion;
                     settingsData.IsOSHyperVCapable = settingsDataInFile.IsOSHyperVCapable;
                     settingsData.MaxLogFileSizeInKB = settingsDataInFile.MaxLogFileSizeInKB;
@@ -43,20 +58,34 @@ namespace ToggleHypervisor
             }
             if (!isSettingsFileValid)
             {
-                SettingsFileCreator.GetInstance().Create();
+                try
+                {
+                    SettingsFileCreator<SettingsData>.Create(fileLocations.SettingsFolderName, fileLocations.SettingsFileName);
+                }
+                catch (Exception ex)
+                {
+                    isFileAccessError = true;
+                    MessageBox.Show("There was an error processing the settings file:\n\n" +
+                        ex.GetType() + ":\n" + ex.Message + "\n\n" +
+                        "Press OK to close the application.", "Error", MessageBoxButton.OK);
+                    Current.Shutdown();
+                }
             }
 
-            InitializeComponent();
-
-            MainWindowViewModel mainWindowViewModel = Services.GetService<MainWindowViewModel>();
-            mainWindowViewModel.Initialize();
-            mainWindowViewModel.CurrentPage = new MainPage();
-
-            MainWindow = new MainWindow
+            if (!isFileAccessError)
             {
-                DataContext = mainWindowViewModel
-            };
-            MainWindow.Show();
+                InitializeComponent();
+
+                MainWindowViewModel mainWindowViewModel = Services.GetService<MainWindowViewModel>();
+                mainWindowViewModel.Initialize();
+                mainWindowViewModel.CurrentPage = new MainPage();
+
+                MainWindow = new MainWindow
+                {
+                    DataContext = mainWindowViewModel
+                };
+                MainWindow.Show();
+            }
         }
 
         public new static App Current => (App)Application.Current;

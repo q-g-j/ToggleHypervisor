@@ -8,6 +8,8 @@ using ToggleHypervisor.Services;
 using ToggleHypervisor.Views;
 using System.Windows;
 using System.Diagnostics;
+using QGJSoft.SettingsFile;
+using System;
 
 namespace ToggleHypervisor.ViewModels
 {
@@ -34,7 +36,6 @@ namespace ToggleHypervisor.ViewModels
             });
 
             WindowsVersionChecker windowsVersionChecker = new WindowsVersionChecker();
-            SettingsFileWriter settingsFileWriter = new SettingsFileWriter();
 
             var settingsData = App.Current.Services.GetService<SettingsData>();
 
@@ -54,7 +55,21 @@ namespace ToggleHypervisor.ViewModels
                     settingsData.IsOSHyperVCapable = true;
                 }
 
-                settingsFileWriter.Write();
+                var fileLocations = App.Current.Services.GetService<FileLocations>();
+                try
+                {
+                    SettingsFileWriter<SettingsData>.Write(fileLocations.SettingsFileName, settingsData);
+                }
+                catch (Exception ex)
+                {
+                    var loggerEventArgs = new LoggerEventArgs(
+                        "",
+                        GetType().Name,
+                        MethodBase.GetCurrentMethod().ToString(),
+                        ex
+                        );
+                    RaiseLogEvent(this, loggerEventArgs);
+                }
             }
             else if(!settingsData.IsOSHyperVCapable)
             {

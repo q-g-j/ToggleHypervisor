@@ -4,7 +4,15 @@ namespace ToggleHypervisor.Models
 {
     public class SettingsData
     {
-        public SettingsData(string lastKnownOSVersion = "", bool isOSHyperVCapable = false, bool rebootAfterToggle = false, int maxLogFileSizeInKB = 256)
+        public SettingsData()
+        {
+            LastKnownOSVersion = "";
+            IsOSHyperVCapable = false;
+            RebootAfterToggle = false;
+            MaxLogFileSizeInKB = 256;
+        }
+
+        public SettingsData(string lastKnownOSVersion, bool isOSHyperVCapable, bool rebootAfterToggle, int maxLogFileSizeInKB)
         {
             LastKnownOSVersion = lastKnownOSVersion;
             IsOSHyperVCapable = isOSHyperVCapable;
