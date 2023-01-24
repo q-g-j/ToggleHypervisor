@@ -6,6 +6,7 @@ using QGJSoft.Logging;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using ToggleHypervisor.Models;
+using System.Linq;
 
 namespace ToggleHypervisor.Services
 {
@@ -52,56 +53,24 @@ namespace ToggleHypervisor.Services
 
         public bool AreComponentsInstalled()
         {
-            Process process = new Process()
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OptionalFeature where Name LIKE '%Hyper%'"))
+            using (ManagementObjectCollection collection = searcher.Get())
             {
-                StartInfo = new ProcessStartInfo
+                foreach (ManagementObject obj in collection.Cast<ManagementObject>())
                 {
-                    CreateNoWindow = true,
-                    FileName = "powershell",
-                    Arguments = "Get-WindowsOptionalFeature -Online | Where FeatureName -Like \"*Hyper*\"",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true
-                }
-            };
-
-            try
-            {
-                process.Start();
-                string output = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
-
-                using (StringReader reader = new StringReader(output))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
+                    if (
+                        obj["Name"].ToString() == "Microsoft-Hyper-V-All" &&
+                        int.Parse(obj["InstallState"].ToString()) != 1)
                     {
-                        if (line.Contains("Microsoft-Hyper-V-All"))
-                        {
-                            line = reader.ReadLine();
-                            if (!line.Contains("Enabled"))
-                            {
-                                return false;
-                            }
-                        }
-                        if (line.Contains("Microsoft-Hyper-V"))
-                        {
-                            line = reader.ReadLine();
-                            if (!line.Contains("Enabled"))
-                            {
-                                return false;
-                            }
-                        }
+                        return false;
+                    }
+                    else if (
+                        obj["Name"].ToString() == "Microsoft-Hyper-V" &&
+                        int.Parse(obj["InstallState"].ToString()) != 1)
+                    {
+                        return false;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                var loggerEventArgs = new LoggerEventArgs(
-                    String.Empty,
-                    GetType().Name,
-                    MethodBase.GetCurrentMethod().Name,
-                    ex);
-                RaiseLogEvent("ToggleHypervisor.log", settingsData.MaxLogFileSizeInKB, loggerEventArgs);
             }
 
             return true;
