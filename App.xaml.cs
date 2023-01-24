@@ -107,11 +107,5 @@ namespace ToggleHypervisor
 
             return services.BuildServiceProvider();
         }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            FileLogger.CancellationTokenSource.Cancel();
-            base.OnExit(e);
-        }
     }
 }
