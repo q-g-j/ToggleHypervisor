@@ -6,7 +6,7 @@ using ToggleHypervisor.Services;
 
 namespace ToggleHypervisor.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged, IFileLogger
+    public abstract class ViewModelBase : INotifyPropertyChanged, IFileLogger
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

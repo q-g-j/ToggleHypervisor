@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "process",
+      "windows": {
+        "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\msbuild.exe",
+        "args": [
+          "-p:Configuration=Debug;DebugType=portable;PlatformTarget=x64",
+          "ToggleHypervisor.csproj"
+        ]
+      },
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build"
+    }
+  ]
+}
+  

@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "name": ".NET Framework Launch",
+      "type": "clr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "ToggleHypervisor.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}/bin/Debug",
+      "stopAtEntry": false
+    }
+  ]
+}
+  

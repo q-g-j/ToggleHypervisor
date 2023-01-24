@@ -3,7 +3,7 @@ using System;
 
 namespace ToggleHypervisor.Services
 {
-    public class ServiceBase : IFileLogger
+    public abstract class ServiceBase : IFileLogger
     {
         public event Action<string, int, LoggerEventArgs> LogEvent;
 
