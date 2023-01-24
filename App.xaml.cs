@@ -8,6 +8,9 @@ using ToggleHypervisor.Models;
 using QGJSoft.Logging;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ToggleHypervisor
 {
@@ -107,9 +110,8 @@ namespace ToggleHypervisor
 
         protected override void OnExit(ExitEventArgs e)
         {
-            base.OnExit(e);
-
             FileLogger.CancellationTokenSource.Cancel();
+            base.OnExit(e);
         }
     }
 }
